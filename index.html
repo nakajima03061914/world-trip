@@ -10,45 +10,49 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 /* ══════════════ 白昼 — tokens ══════════════
-   地＝陽に灼けた石灰壁／字＝直射日光がつくる影／
-   光源＝白熱した太陽／冷たい色＝サマルカンドの釉薬タイル      */
+   地＝白。陽が飛んで何もかもが明るい。
+   字＝直射日光が落とす影。光源＝太陽そのもの。         */
 :root{
-  --hakuchu:#E9ECE4;  /* 陽に灼けた漆喰・白飛びした光 */
-  --kage:#17242B;     /* 直射日光の影（青みを含む濃色） */
-  --taiyo:#C8791A;    /* 白熱した太陽 */
-  --tile:#0E6E8E;     /* サマルカンドの釉薬タイルの青 */
-  --gulal:#B32F4C;    /* ホーリーのグラビ */
-  --suna:#8C8B7C;     /* 乾いた砂の灰 */
-  /* light（昼＝既定） */
-  --ground:#E9ECE4; --ink:#17242B; --meta:#6E6F62;
-  --rule:rgba(140,139,124,.42); --rule-soft:rgba(140,139,124,.22);
-  --grid:rgba(140,139,124,.085); --grid-5:rgba(140,139,124,.17);
-  --accent:#C8791A; --cool:#0E6E8E; --fest:#B32F4C; --raise:rgba(140,139,124,.08);
-  --blaze-1:rgba(255,255,255,.92); --blaze-2:rgba(255,247,232,.55); --blaze-3:rgba(200,121,26,.07);
+  --ground:#FFFFFF;       /* 白 */
+  --paper:#FDFBF6;        /* 陽だまりの紙 */
+  --ink:#1B1712;          /* 影 */
+  --meta:#7A7166;
+  --sun:#E08A0F;          /* 照りつける太陽 */
+  --sun-hot:#F5A623;      /* 白熱 */
+  --tile:#0E6E8E;         /* サマルカンドの釉薬タイル */
+  --fest:#C0392B;
+  --land:#F2EDE2;         /* 陽に灼けた大地 */
+  --rule:rgba(122,113,102,.30);
+  --rule-soft:rgba(122,113,102,.15);
+  --accent:#D97A0A; --cool:#0E6E8E; --raise:#FDFBF6;
+  --blaze-1:rgba(255,255,255,.98); --blaze-2:rgba(255,236,196,.60);
+  --blaze-3:rgba(245,166,35,.13);
 }
-/* dark＝日没後の乾いた土地。夜の黒ではなく、温度の残る闇 */
 @media (prefers-color-scheme:dark){
   :root{
-    --ground:#171410; --ink:#E4E0D4; --meta:#9A9384;
-    --rule:rgba(154,147,132,.34); --rule-soft:rgba(154,147,132,.17);
-    --grid:rgba(154,147,132,.06); --grid-5:rgba(154,147,132,.13);
-    --accent:#E0A32E; --cool:#3E9CBC; --fest:#D2405F; --raise:rgba(228,224,212,.04);
-    --blaze-1:rgba(224,163,46,.16); --blaze-2:rgba(224,163,46,.08); --blaze-3:rgba(224,163,46,.03);
+    --ground:#14110D; --paper:#1B1712; --ink:#F2EDE2; --meta:#9C9182;
+    --land:#241F18;
+    --rule:rgba(156,145,130,.30); --rule-soft:rgba(156,145,130,.15);
+    --accent:#F0A22B; --cool:#4FA8C7; --fest:#E05A45; --raise:#1B1712;
+    --blaze-1:rgba(245,166,35,.15); --blaze-2:rgba(245,166,35,.07);
+    --blaze-3:rgba(245,166,35,.02);
   }
 }
 :root[data-theme="dark"]{
-  --ground:#171410; --ink:#E4E0D4; --meta:#9A9384;
-  --rule:rgba(154,147,132,.34); --rule-soft:rgba(154,147,132,.17);
-  --grid:rgba(154,147,132,.06); --grid-5:rgba(154,147,132,.13);
-  --accent:#E0A32E; --cool:#3E9CBC; --fest:#D2405F; --raise:rgba(228,224,212,.04);
-    --blaze-1:rgba(224,163,46,.16); --blaze-2:rgba(224,163,46,.08); --blaze-3:rgba(224,163,46,.03);
+  --ground:#14110D; --paper:#1B1712; --ink:#F2EDE2; --meta:#9C9182;
+  --land:#241F18;
+  --rule:rgba(156,145,130,.30); --rule-soft:rgba(156,145,130,.15);
+  --accent:#F0A22B; --cool:#4FA8C7; --fest:#E05A45; --raise:#1B1712;
+  --blaze-1:rgba(245,166,35,.15); --blaze-2:rgba(245,166,35,.07);
+  --blaze-3:rgba(245,166,35,.02);
 }
 :root[data-theme="light"]{
-  --ground:#E9ECE4; --ink:#17242B; --meta:#6E6F62;
-  --rule:rgba(140,139,124,.42); --rule-soft:rgba(140,139,124,.22);
-  --grid:rgba(140,139,124,.085); --grid-5:rgba(140,139,124,.17);
-  --accent:#C8791A; --cool:#0E6E8E; --fest:#B32F4C; --raise:rgba(140,139,124,.08);
-  --blaze-1:rgba(255,255,255,.92); --blaze-2:rgba(255,247,232,.55); --blaze-3:rgba(200,121,26,.07);
+  --ground:#FFFFFF; --paper:#FDFBF6; --ink:#1B1712; --meta:#7A7166;
+  --land:#F2EDE2;
+  --rule:rgba(122,113,102,.30); --rule-soft:rgba(122,113,102,.15);
+  --accent:#D97A0A; --cool:#0E6E8E; --fest:#C0392B; --raise:#FDFBF6;
+  --blaze-1:rgba(255,255,255,.98); --blaze-2:rgba(255,236,196,.60);
+  --blaze-3:rgba(245,166,35,.13);
 }
 
 *{box-sizing:border-box}
@@ -56,12 +60,8 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--ground); color:var(--ink);
   font-family:"Zen Kaku Gothic New",system-ui,sans-serif;
-  font-weight:400; font-size:16.5px; line-height:1.95;
+  font-weight:400; font-size:17px; line-height:2.0;
   -webkit-font-smoothing:antialiased;
-  /* 24px baseline grid, every 5th line is a 計曲線 */
-  background-image:
-    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(to bottom, var(--grid-5) 0 1px, transparent 1px 120px);
 }
 ::selection{background:var(--accent);color:var(--ground)}
 a{color:inherit}
@@ -96,44 +96,90 @@ a{color:inherit}
 .page{margin-left:72px}
 .wrap{max-width:1000px;margin:0 auto;padding:0 40px}
 
-/* ══════════════ HERO — 白昼 ══════════════ */
+/* ══════════════ HERO — 照りつける白昼 ══════════════ */
 .hero{min-height:100vh;background:var(--ground);color:var(--ink);position:relative;overflow:hidden}
-.hero::before{ /* 中天の白熱：陽が飛んで紙が焼けている感じ */
-  content:"";position:absolute;left:50%;top:-32vh;width:132vh;height:132vh;
-  transform:translateX(-50%);border-radius:50%;pointer-events:none;
+.hero::before{ /* 中天。画面いっぱいに陽が飛んでいる */
+  content:"";position:absolute;left:50%;top:-46vh;width:170vh;height:170vh;
+  transform:translateX(-50%);border-radius:50%;pointer-events:none;z-index:0;
   background:radial-gradient(circle at 50% 50%,
-    var(--blaze-1) 0%, var(--blaze-2) 34%, var(--blaze-3) 62%, transparent 72%)}
-.hero .inner{position:relative;z-index:2;width:100%;max-width:1000px;margin:0 auto;padding:0 40px;
-  display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;min-height:100vh}
-.hero-l{display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding-bottom:14vh}
-.hero-tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--meta);margin:0 0 auto;padding-top:14vh}
+    var(--blaze-1) 0%, var(--blaze-2) 30%, var(--blaze-3) 58%, transparent 70%)}
+.hero .inner{position:relative;z-index:2;width:100%;max-width:1180px;margin:0 auto;padding:0 40px;
+  display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center;min-height:100vh}
+.hero-l{display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding-bottom:12vh}
+.hero-tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--meta);margin:0 0 auto;padding-top:13vh}
+.hero-cry{font-family:"Shippori Mincho B1",serif;font-weight:500;
+  font-size:clamp(1.02rem,1.75vw,1.42rem);line-height:2.5;letter-spacing:.1em;
+  color:var(--ink);margin:0 0 44px;max-width:24em;text-wrap:balance}
+.hero-cry b{font-weight:700;color:var(--accent)}
 .hero-stats{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule)}
-.hero-stats div{padding:14px 26px 0 0;margin-right:26px;border-right:1px solid var(--rule-soft)}
+.hero-stats div{padding:16px 30px 0 0;margin-right:30px;border-right:1px solid var(--rule-soft)}
 .hero-stats div:last-child{border-right:none}
-.hero-stats .v{font-family:"IBM Plex Mono",monospace;font-size:19px;color:var(--accent);
+.hero-stats .v{font-family:"IBM Plex Mono",monospace;font-size:22px;color:var(--accent);
   font-variant-numeric:tabular-nums;display:block;line-height:1.3}
-.hero-stats .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.18em;
+.hero-stats .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--meta)}
-.hero-r{display:flex;flex-direction:row-reverse;align-items:flex-start;gap:30px}
+.hero-r{display:flex;flex-direction:row-reverse;align-items:flex-start;gap:34px}
 .hero-r p{margin:0;writing-mode:vertical-rl;white-space:nowrap;
   font-family:"Shippori Mincho B1",serif;color:var(--ink);
-  font-weight:700;font-size:clamp(1.35rem,2.9vw,2.15rem);letter-spacing:.15em;line-height:1}
-.hero-r p.sm{font-weight:500;font-size:clamp(.82rem,1.55vw,1.12rem);
-  color:var(--meta);letter-spacing:.24em;margin-top:2.2em}
-/* 太陽の円盤と、そこから落ちてくる光 */
-.sun{position:absolute;left:50%;top:12vh;width:16px;height:16px;margin-left:-8px;
-  border-radius:50%;background:var(--accent);z-index:2;
-  box-shadow:0 0 0 7px rgba(200,121,26,.14), 0 0 34px 10px rgba(200,121,26,.24)}
-.thread{position:absolute;left:50%;top:calc(12vh + 16px);bottom:0;width:1px;
-  background:linear-gradient(to bottom,var(--accent),rgba(140,139,124,.28) 42%,transparent);z-index:1}
-.dot{position:absolute;left:50%;width:5px;height:5px;margin-left:-2px;border-radius:50%;
-  background:var(--accent);box-shadow:0 0 9px 2px rgba(200,121,26,.5);z-index:2;
+  font-weight:800;font-size:clamp(1.7rem,3.7vw,2.9rem);letter-spacing:.14em;line-height:1}
+.hero-r p.sm{font-weight:500;font-size:clamp(.86rem,1.6vw,1.16rem);
+  color:var(--meta);letter-spacing:.24em;margin-top:2.4em}
+/* 太陽と、そこから落ちる光 */
+.sun{position:absolute;left:50%;top:11vh;width:22px;height:22px;margin-left:-11px;
+  border-radius:50%;background:var(--sun-hot);z-index:2;
+  box-shadow:0 0 0 10px rgba(245,166,35,.16), 0 0 60px 18px rgba(245,166,35,.34)}
+.thread{position:absolute;left:50%;top:calc(11vh + 22px);bottom:0;width:1px;
+  background:linear-gradient(to bottom,var(--sun-hot),var(--rule-soft) 46%,transparent);z-index:1}
+.dot{position:absolute;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;
+  background:var(--sun-hot);box-shadow:0 0 12px 3px rgba(245,166,35,.55);z-index:2;
   animation:fall 8s linear infinite}
-@keyframes fall{0%{top:12vh;opacity:0}10%{opacity:1}90%{opacity:.9}100%{top:100%;opacity:0}}
-.scrollcue{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:2;
-  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.28em;
+@keyframes fall{0%{top:11vh;opacity:0}10%{opacity:1}90%{opacity:.9}100%{top:100%;opacity:0}}
+.scrollcue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.3em;
   color:var(--meta);text-transform:uppercase}
+
+/* ══════════════ 序 — 旅の宣言 ══════════════ */
+.creed{padding:132px 0 124px;position:relative}
+.creed::before{content:"";position:absolute;left:50%;top:0;width:1px;height:64px;
+  background:linear-gradient(to bottom,transparent,var(--accent));transform:translateX(-50%)}
+.creed-in{max-width:1180px;margin:0 auto;padding:0 40px}
+.creed-lead{font-family:"Shippori Mincho B1",serif;font-weight:700;
+  font-size:clamp(1.6rem,4.4vw,3.1rem);line-height:1.85;letter-spacing:.09em;
+  margin:0 0 76px;text-wrap:balance;max-width:19em}
+.creed-lead em{font-style:normal;color:var(--accent)}
+.creed-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:0}
+.creed-item{padding:0 34px 0 0;margin-right:34px;border-right:1px solid var(--rule-soft)}
+.creed-item:last-child{border-right:none;margin-right:0;padding-right:0}
+.creed-item .cn{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:16px}
+.creed-item h3{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1.24rem;
+  letter-spacing:.08em;margin:0 0 12px}
+.creed-item p{margin:0;font-size:14.5px;line-height:2.05;color:var(--meta)}
+@media(max-width:860px){
+  .creed{padding:88px 0 80px}
+  .creed-in{padding:0 22px}
+  .creed-item{border-right:none;margin-right:0;padding:0 0 30px;
+    border-bottom:1px solid var(--rule-soft);margin-bottom:30px}
+  .creed-item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+}
+
+/* ══════════════ 大地 — 全幅の写真帯 ══════════════ */
+.plate{position:relative;width:calc(100vw - 72px);margin-left:calc((100% - (100vw - 72px))/2);
+  margin-top:96px;margin-bottom:96px;overflow:hidden;background:var(--paper)}
+.plate img{display:block;width:100%;height:clamp(320px,62vh,680px);object-fit:cover;
+  filter:saturate(.97) contrast(1.02)}
+.plate figcaption{position:absolute;left:0;right:0;bottom:0;padding:56px 40px 26px;
+  background:linear-gradient(to top,rgba(20,17,13,.72),transparent);color:#FFF9EC}
+.plate .pc{font-family:"Shippori Mincho B1",serif;font-weight:700;
+  font-size:clamp(1.12rem,2.5vw,1.85rem);letter-spacing:.1em;margin:0;text-wrap:balance;
+  text-shadow:0 1px 18px rgba(20,17,13,.5)}
+.plate .pm{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.24em;
+  text-transform:uppercase;opacity:.82;margin:10px 0 0}
+@media(max-width:860px){
+  .plate{width:100vw;margin-left:calc((100% - 100vw)/2);margin-top:64px;margin-bottom:64px}
+  .plate figcaption{padding:44px 22px 20px}
+}
 
 /* ══════════════ SECTION ══════════════ */
 section{padding:112px 0 24px;scroll-margin-top:0}
@@ -359,6 +405,7 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
   <div class="inner">
     <div class="hero-l">
       <p class="hero-tag">A Solo Journey · 2026–2027</p>
+      <p class="hero-cry">四五七日。四六の国。<br>陽の高いうちに、<b>地球を一周</b>する。</p>
       <div class="hero-stats">
         <div><span class="v">457</span><span class="k">Days</span></div>
         <div><span class="v">46</span><span class="k">Countries</span></div>
@@ -372,6 +419,38 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
 </header>
 
 <div class="page">
+
+<figure class="plate" style="margin-top:0">
+  <img src="img/sigiriya.jpg" alt="スリランカ・シギリヤロックの前に立つ旅人" loading="eager" decoding="async">
+  <figcaption>
+    <p class="pc">地平線は、歩いても歩いても遠い。</p>
+    <p class="pm">Sigiriya, Sri Lanka</p>
+  </figcaption>
+</figure>
+
+<section class="creed">
+  <div class="creed-in">
+    <p class="creed-lead">四五七日かけて、<em>世界の大きさ</em>を<br>自分の足で測りにいく。</p>
+    <div class="creed-grid">
+      <div class="creed-item">
+        <span class="cn">01 — Hardship</span>
+        <h3>幾度の困難を超えていく</h3>
+        <p>言葉は通じない。バスは来ない。予定は初日から崩れる。ビザは下りず、腹を壊し、宿は満室で、荷物は減っていく。四六の国境のたびに、旅は最初からやり直しになる。</p>
+      </div>
+      <div class="creed-item">
+        <span class="cn">02 — Encounter</span>
+        <h3>さまざまな出会いがある</h3>
+        <p>それでも行く先々で、誰かが飯を分けてくれる。グルドワラの無料食堂、寺院の朝の托鉢、ドミトリーの二段ベッドの上の段。名前も忘れる人たちに、何度も助けられて先へ進む。</p>
+      </div>
+      <div class="creed-item">
+        <span class="cn">03 — Growth</span>
+        <h3>世界を感じ、成長する</h3>
+        <p>灼けつく太陽の下を歩き続けた四五七日後、世界は少しだけ自分のものになっている。地図の上の記号でしかなかった国が、匂いと味と、顔のある場所に変わっている。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="wrap">
 
 <section id="map-sec">
@@ -398,7 +477,14 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
   </table></div>
 </section>
 
-<hr class="rule">
+</div>
+
+<figure class="plate">
+  <img src="img/ganga.jpg" alt="川辺に集まる人々" loading="lazy" decoding="async">
+  <figcaption><p class="pc">その土地の人が集まる場所に、いつも旅の答えがある。</p><p class="pm">Ganga, India</p></figcaption>
+</figure>
+
+<div class="wrap">
 
 <section id="festivals">
   <div class="sec-h"><span class="no">03</span><h2>祭</h2></div>
@@ -406,7 +492,14 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
   <div id="fest-blocks"></div>
 </section>
 
-<hr class="rule">
+</div>
+
+<figure class="plate">
+  <img src="img/field.jpg" alt="花と畑の広がる大地" loading="lazy" decoding="async">
+  <figcaption><p class="pc">この一日いくらで、地球のどこにでも立っていられる。</p><p class="pm">On the road</p></figcaption>
+</figure>
+
+<div class="wrap">
 
 <section id="budget">
   <div class="sec-h"><span class="no">04</span><h2>勘定</h2></div>
@@ -445,7 +538,14 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
   </table></div>
 </section>
 
-<hr class="rule">
+</div>
+
+<figure class="plate">
+  <img src="img/horizon.jpg" alt="海と雲の水平線" loading="lazy" decoding="async">
+  <figcaption><p class="pc">四六の国は、四六の空と土でできている。</p><p class="pm">Somewhere between</p></figcaption>
+</figure>
+
+<div class="wrap">
 
 <section id="countries">
   <div class="sec-h"><span class="no">05</span><h2>土地と競技</h2></div>
