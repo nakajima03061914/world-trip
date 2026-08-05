@@ -158,23 +158,14 @@ a{color:inherit}
   font-size:clamp(1.9rem,5.6vw,4.2rem);line-height:1.5;letter-spacing:.08em;
   margin:0 0 20px;text-wrap:balance}
 .reel-end h1 b{color:var(--accent-txt);font-weight:800}
-.reel-sub{font-size:clamp(12.5px,1.6vw,14.5px);color:var(--meta);margin:0 0 40px;
+.reel-sub{font-size:clamp(12.5px,1.6vw,14.5px);color:var(--meta);margin:0;
   max-width:36em;line-height:2}
-.reel-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:0;
-  border-top:1px solid var(--rule);padding-top:18px}
-.reel-stats div{padding:0 26px;border-right:1px solid var(--rule-soft)}
-.reel-stats div:last-child{border-right:none}
-.reel-stats .v{font-family:"IBM Plex Mono",monospace;font-size:clamp(15px,2.4vw,21px);
-  color:var(--accent-txt);font-variant-numeric:tabular-nums;display:block;line-height:1.4}
-.reel-stats .k{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--meta)}
 .reel-cue{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:7;
   font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.3em;
   color:var(--meta);text-transform:uppercase;opacity:0;transition:opacity .8s .4s}
 .reel-end.on ~ .reel-cue{opacity:1}
 @media(max-width:860px){
   .reel-map{width:260vw}
-  .reel-stats div{padding:0 14px}
 }
 @media(prefers-reduced-motion:reduce){
   .reel-photo,.reel-hud{display:none}
@@ -496,12 +487,6 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
     <h1>四五七日かけて、<b>四六の国</b>を歩く。</h1>
     <p class="reel-sub">世界一周ひとり旅の計画書 — 2026年10月1日 東京発／2027年12月31日 ニューヨーク着。<br>
       総額362万円・1日7,924円の全内訳を、2026年の実勢価格で公開しています。</p>
-    <div class="reel-stats">
-      <div><span class="v">457</span><span class="k">Days</span></div>
-      <div><span class="v">46</span><span class="k">Countries</span></div>
-      <div><span class="v">¥3.62M</span><span class="k">Total</span></div>
-      <div><span class="v">¥7,924</span><span class="k">Per Day</span></div>
-    </div>
   </div>
 
   <span class="reel-cue">Scroll</span>
