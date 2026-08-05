@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nakajima03061914.github.io/world-trip/sitemap.xml
