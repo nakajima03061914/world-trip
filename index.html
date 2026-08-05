@@ -515,9 +515,9 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
 <section class="offer" id="summary">
   <h2>この計画書で公開しているもの</h2>
   <ul class="offer-list">
-    <li><span class="q">27項目</span><span>総額<b>3,621,450円</b>・1日あたり7,924円の費用内訳。航空券・宿・食・ビザ・保険・予防接種・装備・手数料・予備費まで<a href="#budget">→ 04 勘定</a></span></li>
-    <li><span class="q">46ヶ国</span><span>国別のドミトリー1泊と1食の値段。2026年の実勢価格で全部洗い直した（1ドル150円換算）<a href="#budget">→ 04 勘定</a></span></li>
-    <li><span class="q">30項目</span><span>見落としがちな費用。ナミビアの到着ビザ、ニュージーランドの観光税IVL、忘れると旅が破綻するもの<a href="#budget">→ 04 勘定</a></span></li>
+    <li><span class="q">27項目</span><span>総額<b>3,621,450円</b>・1日あたり7,924円の費用内訳。航空券・宿・食・ビザ・保険・予防接種・装備・手数料・予備費まで<a href="#budget">→ 04 必要経費</a></span></li>
+    <li><span class="q">46ヶ国</span><span>国別のドミトリー1泊と1食の値段。2026年の実勢価格で全部洗い直した（1ドル150円換算）<a href="#budget">→ 04 必要経費</a></span></li>
+    <li><span class="q">30項目</span><span>見落としがちな費用。ナミビアの到着ビザ、ニュージーランドの観光税IVL、忘れると旅が破綻するもの<a href="#budget">→ 04 必要経費</a></span></li>
     <li><span class="q">58の祭</span><span>旅程に重なる世界の祭りと奇祭。ホーリー、トマト祭り、死者の日、タイムズスクエアの年越し<a href="#festivals">→ 03 祭</a></span></li>
     <li><span class="q">無料の宿</span><span>実在する手段。インドのグルドワラの宿泊とランガル（無料食）、タイの寺院の瞑想リトリート、ホステルの労働交換</span></li>
   </ul>
@@ -608,7 +608,7 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
 <div class="wrap">
 
 <section id="budget">
-  <div class="sec-h"><span class="no">04</span><h2>勘定<span class="sub">世界一周の費用362万円の内訳</span></h2></div>
+  <div class="sec-h"><span class="no">04</span><h2>必要経費<span class="sub">世界一周の費用362万円の内訳</span></h2></div>
   <p class="lead">2026年の実勢価格で全項目を洗い直した、<strong>ガチ節約バックパッカー</strong>の帳簿。最安ドミトリーを基本に、寺院の瞑想リトリート、グルドワラの無料宿とランガル、ホステルの労働交換を織り込んでいる。1ドル150円換算。</p>
   <div class="kpis">
     <div class="kpi hi"><span class="v" id="kpi-total"></span><span class="k">旅費 合計</span></div>
@@ -1314,7 +1314,7 @@ startReel();
   });
 })();
 
-/* ══════════════ 04 勘定 ══════════════ */
+/* ══════════════ 04 必要経費 ══════════════ */
 (function money(){
   const total = budget.reduce((a,b)=>a+b.v,0);
   const living = budget[0].v;
@@ -1406,7 +1406,7 @@ startReel();
 
 /* ══════════════ 柱 — 現在地 ══════════════ */
 (function rail(){
-  const titles = {'map-sec':'航路','itin':'旅程','festivals':'祭','budget':'勘定','countries':'土地と競技'};
+  const titles = {'map-sec':'航路','itin':'旅程','festivals':'祭','budget':'必要経費','countries':'土地と競技'};
   const rt = el('railTitle'), rd = el('railDay');
   const secs = [...document.querySelectorAll('section[id]')];
   const io = new IntersectionObserver(es=>es.forEach(e=>{
