@@ -224,6 +224,26 @@ a{color:inherit}
   filter:saturate(.97) contrast(1.02)}
 /* 画像内に文字があるキービジュアルは、切り取らず全体を見せる */
 .plate-key img{height:auto;object-fit:contain;filter:none}
+
+/* ══════════════ 旅のイメージ映像 ══════════════ */
+.film{position:relative;margin:96px auto;padding:0;max-width:1180px;background:transparent}
+.film video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.film-play{position:absolute;left:0;top:0;right:0;bottom:34px;width:100%;border:0;cursor:pointer;
+  background:linear-gradient(to top,rgba(16,13,10,.62),rgba(16,13,10,.10) 55%,rgba(16,13,10,.28));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  color:#FFF9EC;transition:background .3s}
+.film-play:hover{background:linear-gradient(to top,rgba(16,13,10,.7),rgba(16,13,10,.16) 55%,rgba(16,13,10,.34))}
+.film-play .tri{width:74px;height:74px;border-radius:50%;border:1.5px solid rgba(255,249,236,.85);
+  display:flex;align-items:center;justify-content:center;transition:transform .3s,background .3s}
+.film-play .tri::after{content:"";border-left:19px solid #FFF9EC;border-top:12px solid transparent;
+  border-bottom:12px solid transparent;margin-left:5px}
+.film-play:hover .tri{transform:scale(1.07);background:rgba(255,249,236,.12)}
+.film-play .lbl{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.26em;
+  text-transform:uppercase;text-shadow:0 1px 14px rgba(16,13,10,.6)}
+.film.on .film-play{opacity:0;pointer-events:none}
+.film-cap{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  color:var(--meta);padding:12px 4px 0;height:34px;box-sizing:border-box}
+@media(max-width:860px){.film{margin:64px auto}.film-play .tri{width:60px;height:60px}}
 .plate figcaption{position:absolute;left:0;right:0;bottom:0;padding:56px 40px 26px;
   background:linear-gradient(to top,rgba(20,17,13,.72),transparent);color:#FFF9EC}
 .plate .pc{font-family:"Shippori Mincho B1",serif;font-weight:700;
@@ -544,6 +564,18 @@ footer .fm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.
     </div>
   </div>
 </section>
+
+<figure class="film">
+  <video id="reelvid" poster="video/poster.jpg" preload="none" playsinline muted loop
+         width="1600" height="900" aria-label="旅のイメージ映像">
+    <source src="video/journey.mp4" type="video/mp4">
+    お使いのブラウザは動画に対応していません。
+  </video>
+  <button class="film-play" id="filmPlay" type="button" aria-label="映像を再生する">
+    <span class="tri"></span><span class="lbl">旅のイメージ映像　33秒</span>
+  </button>
+  <figcaption class="film-cap">これまでの旅で撮った写真から。音は入っていません。</figcaption>
+</figure>
 
 <div class="wrap">
 
@@ -1423,6 +1455,21 @@ startReel();
       setTimeout(()=>c.textContent=o,1800);
     }).catch(()=>{ c.textContent='コピーできません'; });
   });
+})();
+
+/* ══════════════ 旅のイメージ映像 ══════════════ */
+(function film(){
+  const fig = document.querySelector('.film'), v = el('reelvid'), btn = el('filmPlay');
+  if(!fig || !v || !btn) return;
+  btn.addEventListener('click', () => {
+    fig.classList.add('on');
+    v.setAttribute('controls','');
+    v.play().catch(()=>{ v.removeAttribute('muted'); });
+  });
+  /* 画面から外れたら止めて、通信と電池を無駄にしない */
+  new IntersectionObserver(es => es.forEach(e => {
+    if(!e.isIntersecting && !v.paused) v.pause();
+  }), {threshold:0}).observe(v);
 })();
 
 /* ══════════════ theme ══════════════ */
