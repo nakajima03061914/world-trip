@@ -124,6 +124,23 @@
   .leaflet-popup-content{font-family:inherit;font-size:13px;margin:12px 14px}
   .pop-c{font-weight:800;font-size:14px}
   .pop-s{color:#666;font-size:12px}
+  /* living-cost detailed breakdown */
+  .lvcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;margin-bottom:12px}
+  .lvhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--grid)}
+  .lvhead .rn{font-weight:800;font-size:15px}
+  .lvhead .rn .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+  .lvhead .meta{font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .lvhead .meta b{color:var(--ink)}
+  .lvgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:640px){.lvgrid{grid-template-columns:1fr}}
+  .lvitem{display:flex;gap:11px;align-items:flex-start;background:var(--plane);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+  .lvitem .ic{font-size:17px;line-height:1.4}
+  .lvitem .bd{flex:1;min-width:0}
+  .lvitem .t{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .lvitem .t .cat{font-weight:700;font-size:13.5px}
+  .lvitem .t .amt{font-weight:800;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+  .lvitem .ex{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.55}
+  .lvtot{display:flex;justify-content:space-between;align-items:baseline;padding:14px 4px 2px;margin-top:6px;border-top:2px solid var(--line);font-weight:800;font-size:15px}
 </style>
 </head>
 <body>
@@ -227,12 +244,9 @@
 
   <div class="card">
     <h3 style="margin:0 0 4px;font-size:16px">② 現地生活費の内訳（地域別）</h3>
-    <p class="note" style="margin:0 0 12px">宿（ドミトリー中心）＋食（ローカル食堂）＋現地交通＋観光の1日あたり予算 × 日数。安い地域を長く、高い地域を短く配分。</p>
-    <table class="cut">
-      <thead><tr><th>エリア</th><th class="amt2">日数</th><th class="amt2">1日予算</th><th class="amt2">小計</th></tr></thead>
-      <tbody id="living-body"></tbody>
-      <tfoot><tr><td class="rgn">現地生活費 合計</td><td class="amt2" id="living-days" style="font-weight:800"></td><td></td><td class="amt2" id="living-total" style="font-weight:800"></td></tr></tfoot>
-    </table>
+    <p class="note" style="margin:0 0 14px">各地域の1日あたり予算を「🛏宿・🍽食事・🚌現地交通・🎫観光」に分解し、ドミトリー1泊や1食のリアルな目安金額まで記載しました（節約バックパッカー基準・2026年概算）。安い地域を長く、高い地域を短く配分しています。</p>
+    <div id="living-detail"></div>
+    <div class="lvtot"><span>現地生活費 合計 <span style="color:var(--muted);font-weight:600;font-size:13px">（<span id="living-days"></span>）</span></span><span id="living-total"></span></div>
   </div>
 
   <div class="card">
@@ -482,15 +496,35 @@ budget.forEach(b=>{
 });
 document.getElementById('budget-total').textContent=yen(budget.reduce((a,b)=>a+b.v,0));
 
-// living cost breakdown (from seasons)
-const lvb=document.getElementById('living-body');
+// living cost breakdown (from seasons) — detailed per category [1日あたり¥, 実例]
+const livcost={
+ 1:{stay:[1000,'ゲストハウスの8人ドミトリー1泊（$6〜8）。バンコクのカオサン、ハノイ旧市街など'],food:[1000,'屋台・ローカル食堂中心。フォー¥300／パッタイ¥250／ローカルビール¥200。1日3食＋飲み物'],trans:[500,'市内はバス・ソンテウ・配車アプリGrab（1回¥100〜300）。夜行バスや鈍行列車もならすとこの程度'],act:[500,'寺院拝観は¥0〜300。ルアンパバーンの滝やアンコール遺跡などの目玉は別枠。平均でこの程度']},
+ 2:{stay:[3500,'バックパッカーズのドミトリー1泊（AUD30〜40）。シドニー・オークランドは特に高い'],food:[2500,'基本は自炊（スーパー食材で1日¥1,500前後）。外食は1食¥1,500〜2,000と高く週数回に絞る'],trans:[1000,'市内はOpal／AT HOPカード（1回¥300前後）。都市間は事前予約の長距離バス'],act:[1000,'国立公園・ビーチ・展望台は無料中心。有料ツアー（ダイビング等）は別予算']},
+ 3:{stay:[1300,'ウブド／チャングーのゲストハウス（$8〜10）。プール付きの個室も狙える'],food:[1000,'ワルン（食堂）でナシチャンプル¥300〜500。ローカル中心'],trans:[600,'バイクレンタル1日¥600前後（ガソリン込み）が主力。Gojek配車も安い'],act:[400,'寺院・ライステラス入場¥100〜300。サーフ／ヨガレッスンは別']},
+ 4:{stay:[800,'安宿ドミトリー／ゲストハウス（₹400〜600）。旅で最も安いエリア'],food:[800,'ターリー（定食）¥200〜300、チャイ¥30、ドーサ¥150。ローカル食堂中心'],trans:[600,'列車（スリーパー／2等）・ローカルバスが激安。長距離もならすとこの程度'],act:[400,'遺跡は外国人料金あり（タージマハル¥1,300等）。無料の街歩きと平均してこの程度']},
+ 5:{stay:[1200,'ホステル／ゲストハウスのドミトリー（$8〜10）。ジョージアは特に安い'],food:[1000,'ラグマン・シャシリク・ハチャプリ¥300〜500。市場飯が中心'],trans:[900,'マルシュルートカ（乗合バン）・シェアタクシーが主力。都市間移動が多くやや高め'],act:[500,'サマルカンド等の史跡入場。山岳トレッキングは基本無料']},
+ 6:{stay:[1500,'ホステルのドミトリー（€9〜12）'],food:[1100,'ブレク¥300、チェバプチチ¥600。市場・ベーカリーを活用'],trans:[700,'都市間はFlixBus等の長距離バス、市内はトラム・徒歩'],act:[500,'旧市街歩きは無料〜数百円。ドゥブロヴニクの城壁は¥3,000超と高め（平均に反映）']},
+ 7:{stay:[3200,'ホステルのドミトリー（€20〜28）。パリ・北欧・スイスは高い'],food:[2400,'自炊主体（スーパーで1日¥1,500前後）＋たまに外食。ケバブ¥800やベーカリーで節約'],trans:[900,'都市間は早割の鉄道・LCC・FlixBus。市内は徒歩＋メトロ'],act:[600,'美術館（ルーブル¥3,000等）は学割・無料開放日を活用']},
+ 8:{stay:[1200,'リヤド／ホステルのドミトリー（$8〜10）'],food:[1000,'タジン¥400、コシャリ¥150、ミントティー¥80。屋台・食堂'],trans:[800,'都市間はCTM等のバス・鉄道、市内はプチタクシー'],act:[500,'メディナ歩きは無料。ピラミッド¥1,000や遺跡入場（平均）']},
+ 9:{stay:[1600,'バックパッカーズのドミトリー（$10〜13）'],food:[1300,'ローカル食堂（ウガリ・ブラーイ）＋自炊。都市部はやや高い'],trans:[1200,'マタツ（乗合）・長距離バスが中心。国土が広く移動費が高い'],act:[600,'街歩きは無料。※サファリ・ゴリラ・ビクトリア滝は超高額のため「特別アクティビティ¥100,000」に別計上']},
+ 10:{stay:[1600,'ホステルのドミトリー（$10〜13）'],food:[1300,'タコス¥100/個、市場のコミダ・コリダ（定食）¥500。屋台天国'],trans:[800,'ADO等の長距離バス、市内メトロ（1回¥50前後）'],act:[500,'テオティワカン等の遺跡¥600、セノーテ入場']},
+ 11:{stay:[1500,'ホステルのドミトリー（$10〜12）。ペルー／ボリビアは安く、チリ／ブラジルは高い'],food:[1200,'メヌー・デル・ディア（日替り定食）¥400〜600。市場飯'],trans:[900,'長距離バス（カマ席）が中心。距離が長く移動費がかさむ'],act:[500,'マチュピチュ¥3,000等は高額（平均）。ウユニ塩湖ツアーは別']},
+ 12:{stay:[4000,'NYのホステルのドミトリー（$30〜45）。世界最高水準の宿代'],food:[2500,'スーパー・デリ・フードトラック中心。1食$8〜15'],trans:[900,'地下鉄メトロカード（1回$2.90）。基本は地下鉄＋徒歩'],act:[600,'セントラルパーク等の無料スポット中心。美術館は寄付制・学割を活用']}
+};
+const catMeta={stay:['🛏','宿（ドミトリー）'],food:['🍽','食事'],trans:['🚌','現地交通'],act:['🎫','観光・入場']};
+const lvd=document.getElementById('living-detail');
 let lvSum=0,dySum=0;
 seasons.forEach(s=>{
  const v=parseInt(s.sub.replace(/[^0-9]/g,''),10);lvSum+=v;dySum+=s.days;
- const tr=document.createElement('tr');
- tr.innerHTML=`<td class="rgn"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${groupColors[s.grp]};margin-right:7px"></span>${s.id}. ${s.area}</td>
-  <td class="amt2">${s.days}日</td><td class="amt2">${s.daily}</td><td class="amt2">${s.sub}</td>`;
- lvb.appendChild(tr);
+ const bd=livcost[s.id]||{};
+ const keys=['stay','food','trans','act'];
+ const dayTotal=keys.reduce((a,k)=>a+((bd[k]&&bd[k][0])||0),0);
+ const items=keys.map(k=>{const it=bd[k];if(!it)return '';
+  return `<div class="lvitem"><div class="ic">${catMeta[k][0]}</div><div class="bd"><div class="t"><span class="cat">${catMeta[k][1]}</span><span class="amt">¥${it[0].toLocaleString()}<span style="font-weight:600;color:var(--muted);font-size:11px">/日</span></span></div><div class="ex">${it[1]}</div></div></div>`;}).join('');
+ const card=document.createElement('div');
+ card.className='lvcard';
+ card.innerHTML=`<div class="lvhead"><span class="rn"><span class="dot" style="background:${groupColors[s.grp]}"></span>${s.id}. ${s.area}</span><span class="meta">${s.days}日 ・ 1日 <b>¥${dayTotal.toLocaleString()}</b> ・ 小計 <b>${s.sub}</b></span></div><div class="lvgrid">${items}</div>`;
+ lvd.appendChild(card);
 });
 document.getElementById('living-total').textContent=yen(lvSum);
 document.getElementById('living-days').textContent=dySum+'日';
